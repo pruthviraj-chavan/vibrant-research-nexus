@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ThemeToggle from "./ThemeToggle";
 
@@ -14,6 +14,7 @@ export default function Navbar() {
     { name: "Home", href: "/" },
     { name: "About Us", href: "/about" },
     { name: "Editorial", href: "/editorial" },
+    { name: "Conferences", href: "/conferences" },
     { name: "Submit Paper", href: "/submit" },
     { name: "Archives", href: "/archives" },
   ];
@@ -69,11 +70,23 @@ export default function Navbar() {
                 </Link>
               ))}
             </div>
-            <ThemeToggle />
+            <div className="flex items-center space-x-2">
+              <Link to="/admin">
+                <Button variant="ghost" size="icon" className="rounded-full transition-transform hover:scale-110">
+                  <Shield className="h-5 w-5" />
+                </Button>
+              </Link>
+              <ThemeToggle />
+            </div>
           </div>
 
           {/* Mobile Nav Toggle */}
           <div className="flex items-center md:hidden">
+            <Link to="/admin" className="mr-2">
+              <Button variant="ghost" size="icon" className="rounded-full">
+                <Shield className="h-5 w-5" />
+              </Button>
+            </Link>
             <ThemeToggle />
             <Button
               variant="ghost"
