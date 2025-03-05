@@ -1,222 +1,359 @@
 
 import Layout from "@/components/Layout";
-import { Linkedin, Mail, ExternalLink } from "lucide-react";
+import { Avatar } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { BookOpen, Award, Briefcase, Mail, ExternalLink, FileText } from "lucide-react";
 
-// Mock data for editorial board
-const editorInChief = {
-  name: "Dr. Elizabeth Chen",
-  role: "Editor-in-Chief",
-  image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-  bio: "Professor of Molecular Biology at Stanford University with over 20 years of research experience in genomics and biotechnology.",
-  email: "e.chen@vibrantresearch.org",
-  linkedin: "https://linkedin.com/in/example"
-};
+export default function Editorial() {
+  const editorialTeam = {
+    chiefEditors: [
+      {
+        name: "Dr. Sarah Johnson",
+        role: "Editor-in-Chief",
+        university: "Stanford University",
+        department: "Department of Computer Science",
+        bio: "Dr. Johnson is a renowned expert in artificial intelligence and has published over 100 papers in top-tier journals. She leads our editorial direction with a focus on maintaining the highest standards of research integrity.",
+        photoUrl: "https://i.pravatar.cc/150?img=32",
+        email: "sjohnson@stanford.edu",
+        publications: 156,
+        citations: 8450,
+        specializations: ["Artificial Intelligence", "Machine Learning", "Data Ethics"],
+        socialLinks: {
+          website: "https://sarahjohnson.stanford.edu",
+          twitter: "https://twitter.com/sarahjohnson",
+          linkedin: "https://linkedin.com/in/sarahjohnson"
+        }
+      },
+      {
+        name: "Dr. Michael Chen",
+        role: "Deputy Editor-in-Chief",
+        university: "MIT",
+        department: "Department of Electrical Engineering and Computer Science",
+        bio: "Dr. Chen brings 20 years of experience in quantum computing research. He oversees the journal's technical content and special issues, ensuring accuracy and relevance across all publications.",
+        photoUrl: "https://i.pravatar.cc/150?img=33",
+        email: "mchen@mit.edu",
+        publications: 128,
+        citations: 6700,
+        specializations: ["Quantum Computing", "Computational Physics", "Complex Systems"],
+        socialLinks: {
+          website: "https://michaelchen.mit.edu",
+          twitter: "https://twitter.com/michaelchen",
+          linkedin: "https://linkedin.com/in/michaelchen"
+        }
+      }
+    ],
+    associateEditors: [
+      {
+        name: "Dr. Priya Sharma",
+        role: "Associate Editor",
+        university: "University of Cambridge",
+        department: "Department of Materials Science",
+        bio: "Dr. Sharma specializes in nanomaterials and sustainable technologies. She manages submissions in the materials science and environmental engineering fields.",
+        photoUrl: "https://i.pravatar.cc/150?img=34",
+        email: "psharma@cambridge.ac.uk",
+        publications: 87,
+        citations: 4200,
+        specializations: ["Nanomaterials", "Sustainable Technologies", "Green Chemistry"],
+        socialLinks: {
+          website: "https://priyasharma.cam.ac.uk",
+          twitter: "https://twitter.com/priyasharma",
+          linkedin: "https://linkedin.com/in/priyasharma"
+        }
+      },
+      {
+        name: "Dr. James Wilson",
+        role: "Associate Editor",
+        university: "University of California, Berkeley",
+        department: "Department of Biology",
+        bio: "Dr. Wilson is a leader in genomics and biotechnology research. He oversees the journal's biological sciences section and guides our peer review process for life sciences papers.",
+        photoUrl: "https://i.pravatar.cc/150?img=61",
+        email: "jwilson@berkeley.edu",
+        publications: 112,
+        citations: 5600,
+        specializations: ["Genomics", "Biotechnology", "Cellular Biology"],
+        socialLinks: {
+          website: "https://jameswilson.berkeley.edu",
+          twitter: "https://twitter.com/jameswilson",
+          linkedin: "https://linkedin.com/in/jameswilson"
+        }
+      },
+      {
+        name: "Dr. Emma Rodriguez",
+        role: "Associate Editor",
+        university: "ETH Zurich",
+        department: "Department of Environmental Sciences",
+        bio: "Dr. Rodriguez focuses on climate science and environmental policy. She manages our special issues on sustainability and leads initiatives to promote interdisciplinary research.",
+        photoUrl: "https://i.pravatar.cc/150?img=45",
+        email: "erodriguez@ethz.ch",
+        publications: 93,
+        citations: 3900,
+        specializations: ["Climate Science", "Environmental Policy", "Sustainability"],
+        socialLinks: {
+          website: "https://emmarodriguez.ethz.ch",
+          twitter: "https://twitter.com/emmarodriguez",
+          linkedin: "https://linkedin.com/in/emmarodriguez"
+        }
+      }
+    ],
+    advisoryBoard: [
+      {
+        name: "Prof. Robert Lee",
+        role: "Advisory Board Member",
+        university: "Harvard University",
+        department: "Department of Physics",
+        bio: "Professor Lee is a Nobel laureate in Physics who provides strategic guidance on our publishing direction and helps maintain our connections with the broader scientific community.",
+        photoUrl: "https://i.pravatar.cc/150?img=65",
+        specializations: ["Theoretical Physics", "Cosmology", "Quantum Mechanics"]
+      },
+      {
+        name: "Dr. Alicia Martinez",
+        role: "Advisory Board Member",
+        university: "Max Planck Institute",
+        department: "Department of Neuroscience",
+        bio: "Dr. Martinez brings expertise in neuroscience and cognitive psychology. She helps ensure our journal addresses emerging research areas and maintains ethical standards.",
+        photoUrl: "https://i.pravatar.cc/150?img=47",
+        specializations: ["Neuroscience", "Cognitive Psychology", "Brain Mapping"]
+      },
+      {
+        name: "Dr. Hiroshi Tanaka",
+        role: "Advisory Board Member",
+        university: "University of Tokyo",
+        department: "Department of Information Science",
+        bio: "Dr. Tanaka is a pioneer in information theory and computational linguistics. He advises on our technological direction and international expansion strategies.",
+        photoUrl: "https://i.pravatar.cc/150?img=70",
+        specializations: ["Information Theory", "Computational Linguistics", "AI Ethics"]
+      }
+    ]
+  };
 
-const seniorEditors = [
-  {
-    name: "Dr. Robert Johnson",
-    role: "Senior Editor, Physics",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-    bio: "Quantum physicist with expertise in theoretical particle physics and cosmology.",
-    institution: "MIT"
-  },
-  {
-    name: "Dr. Maria Garcia",
-    role: "Senior Editor, Computer Science",
-    image: "https://images.unsplash.com/photo-1573496799652-408c2ac9fe98?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-    bio: "Leading researcher in artificial intelligence and machine learning algorithms.",
-    institution: "UC Berkeley"
-  },
-  {
-    name: "Dr. James Lee",
-    role: "Senior Editor, Environmental Science",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-    bio: "Specializes in climate change research and sustainable environmental practices.",
-    institution: "Oxford University"
-  }
-];
-
-const associateEditors = [
-  {
-    name: "Dr. Sarah Williams",
-    role: "Associate Editor",
-    specialty: "Neuroscience",
-    institution: "Harvard Medical School"
-  },
-  {
-    name: "Dr. Ahmed Hassan",
-    role: "Associate Editor",
-    specialty: "Materials Science",
-    institution: "Tokyo Institute of Technology"
-  },
-  {
-    name: "Dr. Carlos Rodriguez",
-    role: "Associate Editor",
-    specialty: "Sustainable Energy",
-    institution: "ETH Zurich"
-  },
-  {
-    name: "Dr. Priya Sharma",
-    role: "Associate Editor",
-    specialty: "Data Science",
-    institution: "Indian Institute of Science"
-  },
-  {
-    name: "Dr. Thomas Müller",
-    role: "Associate Editor",
-    specialty: "Organic Chemistry",
-    institution: "Max Planck Institute"
-  },
-  {
-    name: "Dr. Lucy Zhang",
-    role: "Associate Editor",
-    specialty: "Biomedical Engineering",
-    institution: "Johns Hopkins University"
-  }
-];
-
-const Editorial = () => {
   return (
     <Layout>
-      <section className="pt-32 pb-12 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-30 dark:opacity-20">
-          <div className="absolute top-32 -left-20 w-80 h-80 bg-research-blue/20 rounded-full filter blur-3xl animate-pulse-slow" />
-          <div className="absolute bottom-10 right-20 w-72 h-72 bg-research-amber/20 rounded-full filter blur-3xl animate-pulse-slow" style={{ animationDelay: "1.5s" }} />
-        </div>
-        <div className="section-container relative">
-          <div className="max-w-3xl mx-auto text-center">
-            <span className="inline-block px-3 py-1 mb-4 text-sm font-medium rounded-full bg-research-blue/10 text-research-blue dark:bg-research-blue/20 animate-fade-in">
-              Our Team
-            </span>
-            <h1 className="page-heading animate-fade-in" style={{ animationDelay: "0.2s" }}>
-              Editorial Board
+      <div className="container mx-auto px-4 py-12 max-w-6xl">
+        <div className="space-y-12">
+          {/* Header Section */}
+          <section className="space-y-6">
+            <h1 className="text-4xl md:text-5xl font-serif font-bold bg-clip-text text-transparent bg-gradient-to-r from-research-blue to-research-purple">
+              Editorial Team
             </h1>
-            <p className="text-xl text-slate-600 dark:text-slate-300 animate-fade-in" style={{ animationDelay: "0.4s" }}>
-              Meet the experts who ensure the quality and integrity of our publications
+            <p className="text-lg text-slate-600 dark:text-slate-300 max-w-3xl">
+              Our editorial team consists of leading experts from various disciplines who ensure the highest standards of academic rigor and integrity in our publications.
             </p>
-          </div>
-        </div>
-      </section>
+          </section>
 
-      <section className="section-container">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-serif font-semibold mb-8 text-center">Editor-in-Chief</h2>
-          
-          <div className="glass-card rounded-xl p-8 mb-16">
-            <div className="flex flex-col md:flex-row gap-8">
-              <div className="flex-shrink-0">
-                <img 
-                  src={editorInChief.image} 
-                  alt={editorInChief.name} 
-                  className="w-full md:w-48 h-48 object-cover rounded-xl"
-                />
-              </div>
-              <div>
-                <h3 className="text-2xl font-semibold mb-1">{editorInChief.name}</h3>
-                <p className="text-lg text-research-blue dark:text-research-teal mb-4">{editorInChief.role}</p>
-                <p className="text-slate-600 dark:text-slate-300 mb-4">{editorInChief.bio}</p>
-                <div className="flex space-x-4">
-                  <a 
-                    href={`mailto:${editorInChief.email}`}
-                    className="flex items-center text-slate-600 dark:text-slate-300 hover:text-research-blue dark:hover:text-research-teal transition-colors"
-                  >
-                    <Mail className="h-4 w-4 mr-2" />
-                    {editorInChief.email}
-                  </a>
-                  <a 
-                    href={editorInChief.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center text-slate-600 dark:text-slate-300 hover:text-research-blue dark:hover:text-research-teal transition-colors"
-                  >
-                    <Linkedin className="h-4 w-4 mr-2" />
-                    LinkedIn
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <h2 className="text-2xl font-serif font-semibold mb-8 text-center">Senior Editors</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {seniorEditors.map((editor, index) => (
-              <div 
-                key={index} 
-                className="glass-card rounded-xl p-6 animate-fade-in"
-                style={{ animationDelay: `${index * 0.1 + 0.2}s` }}
-              >
-                <img 
-                  src={editor.image} 
-                  alt={editor.name} 
-                  className="w-24 h-24 object-cover rounded-full mx-auto mb-4"
-                />
-                <h3 className="text-xl font-semibold text-center mb-1">{editor.name}</h3>
-                <p className="text-center text-research-blue dark:text-research-teal text-sm mb-2">{editor.role}</p>
-                <p className="text-center text-slate-500 dark:text-slate-400 text-sm mb-3">{editor.institution}</p>
-                <p className="text-slate-600 dark:text-slate-300 text-sm text-center">{editor.bio}</p>
-              </div>
-            ))}
-          </div>
-          
-          <h2 className="text-2xl font-serif font-semibold mb-8 text-center">Associate Editors</h2>
-          
-          <div className="glass-card rounded-xl p-8 mb-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-              {associateEditors.map((editor, index) => (
-                <div 
-                  key={index} 
-                  className="flex items-center border-b border-slate-200 dark:border-slate-700 pb-4 last:border-0 last:pb-0 animate-slide-in"
-                  style={{ animationDelay: `${index * 0.05 + 0.2}s` }}
-                >
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-research-purple/10 flex items-center justify-center mr-4">
-                    <span className="text-research-purple font-semibold">
-                      {editor.name.charAt(0)}
-                    </span>
+          {/* Editorial Tabs */}
+          <Tabs defaultValue="chief-editors" className="w-full">
+            <TabsList className="grid grid-cols-3 mb-8">
+              <TabsTrigger value="chief-editors">Chief Editors</TabsTrigger>
+              <TabsTrigger value="associate-editors">Associate Editors</TabsTrigger>
+              <TabsTrigger value="advisory-board">Advisory Board</TabsTrigger>
+            </TabsList>
+
+            {/* Chief Editors Tab */}
+            <TabsContent value="chief-editors" className="space-y-8">
+              {editorialTeam.chiefEditors.map((editor, index) => (
+                <Card key={index} className="overflow-hidden">
+                  <div className="md:grid md:grid-cols-3 gap-6">
+                    <div className="p-6 flex flex-col items-center justify-center bg-gradient-to-br from-research-blue/10 to-research-purple/10">
+                      <Avatar className="h-32 w-32 border-4 border-white shadow-lg">
+                        <img src={editor.photoUrl} alt={editor.name} className="object-cover" />
+                      </Avatar>
+                      <h3 className="mt-4 text-xl font-bold text-center">{editor.name}</h3>
+                      <p className="text-research-blue dark:text-research-teal font-medium text-center">{editor.role}</p>
+                      <p className="text-sm text-center text-slate-500 dark:text-slate-400 mt-1">{editor.university}</p>
+                      <p className="text-sm text-center text-slate-500 dark:text-slate-400">{editor.department}</p>
+                      
+                      <div className="flex gap-2 mt-4">
+                        <Button size="sm" variant="outline" className="rounded-full">
+                          <Mail className="h-4 w-4" />
+                        </Button>
+                        {editor.socialLinks && (
+                          <>
+                            <Button size="sm" variant="outline" className="rounded-full">
+                              <ExternalLink className="h-4 w-4" />
+                            </Button>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                    
+                    <div className="col-span-2 p-6">
+                      <div className="space-y-4">
+                        <div>
+                          <h4 className="text-lg font-medium text-research-blue dark:text-research-teal">Biography</h4>
+                          <p className="mt-2 text-slate-600 dark:text-slate-300">{editor.bio}</p>
+                        </div>
+                        
+                        <div>
+                          <h4 className="text-lg font-medium text-research-blue dark:text-research-teal">Specializations</h4>
+                          <div className="flex flex-wrap gap-2 mt-2">
+                            {editor.specializations.map((specialization, idx) => (
+                              <Badge key={idx} variant="secondary">{specialization}</Badge>
+                            ))}
+                          </div>
+                        </div>
+                        
+                        <div className="grid grid-cols-2 gap-4 pt-3">
+                          <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg">
+                            <div className="flex items-center">
+                              <FileText className="h-5 w-5 text-research-blue mr-2" />
+                              <span className="text-slate-700 dark:text-slate-300">Publications</span>
+                            </div>
+                            <p className="text-2xl font-semibold mt-2">{editor.publications}</p>
+                          </div>
+                          <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg">
+                            <div className="flex items-center">
+                              <BookOpen className="h-5 w-5 text-research-purple mr-2" />
+                              <span className="text-slate-700 dark:text-slate-300">Citations</span>
+                            </div>
+                            <p className="text-2xl font-semibold mt-2">{editor.citations}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-semibold">{editor.name}</h3>
-                    <p className="text-sm">
-                      <span className="text-research-blue dark:text-research-teal">{editor.specialty}</span>
-                      <span className="text-slate-500 dark:text-slate-400"> · {editor.institution}</span>
-                    </p>
-                  </div>
-                </div>
+                </Card>
               ))}
+            </TabsContent>
+
+            {/* Associate Editors Tab */}
+            <TabsContent value="associate-editors" className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {editorialTeam.associateEditors.map((editor, index) => (
+                <Card key={index} className="overflow-hidden">
+                  <CardHeader className="flex flex-row gap-4 items-start pb-2">
+                    <Avatar className="h-16 w-16 border-2 border-white shadow">
+                      <img src={editor.photoUrl} alt={editor.name} className="object-cover" />
+                    </Avatar>
+                    <div>
+                      <CardTitle>{editor.name}</CardTitle>
+                      <CardDescription className="flex flex-col">
+                        <span>{editor.role}</span>
+                        <span>{editor.university}</span>
+                      </CardDescription>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <p className="text-sm text-slate-600 dark:text-slate-300">{editor.bio}</p>
+                    
+                    <div>
+                      <h4 className="text-sm font-medium mb-1 text-research-blue dark:text-research-teal">Specializations</h4>
+                      <div className="flex flex-wrap gap-1">
+                        {editor.specializations.map((specialization, idx) => (
+                          <Badge key={idx} variant="outline" className="text-xs">{specialization}</Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </CardContent>
+                  <CardFooter className="flex justify-between border-t pt-4">
+                    <div className="flex items-center gap-2 text-sm">
+                      <FileText className="h-4 w-4 text-slate-400" />
+                      <span>{editor.publications} publications</span>
+                    </div>
+                    <Button size="sm" variant="ghost">
+                      <Mail className="h-4 w-4 mr-1" />
+                      Contact
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </TabsContent>
+
+            {/* Advisory Board Tab */}
+            <TabsContent value="advisory-board" className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {editorialTeam.advisoryBoard.map((advisor, index) => (
+                <Card key={index} className="overflow-hidden">
+                  <div className="p-6 flex flex-col items-center">
+                    <Avatar className="h-24 w-24 border-2 border-white shadow mb-4">
+                      <img src={advisor.photoUrl} alt={advisor.name} className="object-cover" />
+                    </Avatar>
+                    <h3 className="text-lg font-bold text-center">{advisor.name}</h3>
+                    <p className="text-sm text-research-blue dark:text-research-teal text-center">{advisor.role}</p>
+                    <p className="text-xs text-center text-slate-500 mt-1">{advisor.university}</p>
+                    <p className="text-xs text-center text-slate-500">{advisor.department}</p>
+                    
+                    <div className="w-full mt-4 pt-4 border-t">
+                      <p className="text-sm text-slate-600 dark:text-slate-300 line-clamp-4">{advisor.bio}</p>
+                    </div>
+                    
+                    <div className="w-full mt-4">
+                      <h4 className="text-xs font-medium mb-2 text-research-blue dark:text-research-teal">Specializations</h4>
+                      <div className="flex flex-wrap gap-1">
+                        {advisor.specializations.map((specialization, idx) => (
+                          <Badge key={idx} variant="outline" className="text-xs">{specialization}</Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </TabsContent>
+          </Tabs>
+
+          {/* Journal Process Section */}
+          <section className="space-y-6">
+            <h2 className="text-3xl font-serif font-semibold text-research-blue dark:text-research-teal">Editorial Process</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Card>
+                <CardHeader>
+                  <div className="bg-research-blue/10 dark:bg-research-teal/10 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-2">
+                    <FileText className="h-6 w-6 text-research-blue dark:text-research-teal" />
+                  </div>
+                  <CardTitle>Submission Review</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-slate-600 dark:text-slate-300">
+                    Our editors conduct an initial screening of all submissions to ensure they meet basic quality standards and align with our journal's scope.
+                  </p>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader>
+                  <div className="bg-research-purple/10 dark:bg-research-purple/20 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-2">
+                    <Users className="h-6 w-6 text-research-purple" />
+                  </div>
+                  <CardTitle>Peer Review</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-slate-600 dark:text-slate-300">
+                    Papers that pass initial screening undergo double-blind peer review by at least two independent experts in the relevant field.
+                  </p>
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader>
+                  <div className="bg-green-100 dark:bg-green-900/20 p-3 rounded-full w-12 h-12 flex items-center justify-center mb-2">
+                    <Award className="h-6 w-6 text-green-600 dark:text-green-400" />
+                  </div>
+                  <CardTitle>Publication Decision</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-slate-600 dark:text-slate-300">
+                    Based on reviewer feedback, our editorial board makes a final decision on acceptance, revision requirements, or rejection.
+                  </p>
+                </CardContent>
+              </Card>
             </div>
-          </div>
-          
-          <div className="text-center">
-            <a 
-              href="#"
-              className="inline-flex items-center text-slate-600 dark:text-slate-300 hover:text-research-blue dark:hover:text-research-teal transition-colors"
-            >
-              View complete editorial board
-              <ExternalLink className="ml-1 h-4 w-4" />
-            </a>
-          </div>
+          </section>
+
+          {/* Join Editorial Team */}
+          <section className="bg-gradient-to-r from-research-blue/10 to-research-purple/10 dark:from-research-blue/20 dark:to-research-purple/20 rounded-xl p-8">
+            <div className="max-w-3xl mx-auto text-center space-y-4">
+              <h2 className="text-2xl font-serif font-semibold">Join Our Editorial Team</h2>
+              <p className="text-slate-600 dark:text-slate-300">
+                We're always looking for qualified researchers to join our editorial team. If you have expertise in a relevant field and are interested in contributing to our journal, we'd love to hear from you.
+              </p>
+              <Button className="mt-4">
+                <Briefcase className="mr-2 h-4 w-4" />
+                Apply to Join
+              </Button>
+            </div>
+          </section>
         </div>
-      </section>
-      
-      <section className="section-container bg-slate-50 dark:bg-slate-900 rounded-3xl mx-4 sm:mx-6">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-serif font-semibold mb-6 text-center">Join Our Editorial Team</h2>
-          <p className="text-center text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto">
-            VibrantResearch is always looking for qualified researchers to join our editorial board. If you're an established expert in your field with a passion for advancing scientific knowledge, we'd love to hear from you.
-          </p>
-          
-          <div className="text-center">
-            <a 
-              href="#"
-              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-research-blue hover:bg-research-blue/90 transition-colors"
-            >
-              Apply to Join
-            </a>
-          </div>
-        </div>
-      </section>
+      </div>
     </Layout>
   );
-};
-
-export default Editorial;
+}
