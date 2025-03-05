@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BookOpen, Award, Briefcase, Mail, ExternalLink, FileText } from "lucide-react";
+import { BookOpen, Award, Briefcase, Mail, ExternalLink, FileText, Users } from "lucide-react";
 
 export default function Editorial() {
   const editorialTeam = {
